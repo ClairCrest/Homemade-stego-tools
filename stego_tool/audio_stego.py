@@ -1,4 +1,3 @@
-# stego_tool/audio_stego.py
 from pydub import AudioSegment
 import numpy as np
 
@@ -23,8 +22,15 @@ class AudioStego:
             sample_width=audio.sample_width,
             channels=audio.channels
         )
+        
+        # Ensure the output path has a proper extension
+        if not output_path.lower().endswith(('.wav', '.mp3', '.ogg', '.flac')):
+            # Default to WAV format for lossless encoding
+            output_path = output_path + '.wav'
+            
         encoded_audio.export(output_path, format="wav")
         print(f"Data encoded and saved to {output_path}")
+        print(f"To decode this audio, run: python main.py decode-audio -i {output_path}")
 
     @staticmethod
     def decode_audio(audio_path):

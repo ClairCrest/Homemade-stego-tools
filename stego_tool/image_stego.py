@@ -30,9 +30,15 @@ class ImageStego:
                 continue
             break
         
+        # Ensure the output path has a proper extension
+        if not output_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tiff')):
+            # Default to PNG format for best quality without compression artifacts
+            output_path = output_path + '.png'
+            
         encoded_img = Image.fromarray(pixels)
         encoded_img.save(output_path)
         print(f"Data encoded and saved to {output_path}")
+        print(f"To decode this image, run: python main.py decode-image -i {output_path}")
 
     @staticmethod
     def decode_image(image_path):
