@@ -1,0 +1,5 @@
+Pillow
+numpy
+pydub
+opencv-python
+click
