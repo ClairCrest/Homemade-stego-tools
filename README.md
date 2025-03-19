@@ -11,7 +11,7 @@ Steganography Tools is a Python project that allows you to hide secret messages 
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/ClairCrest/Homemade-stego-tools.git)
    cd <repository-directory>
    ```
 
