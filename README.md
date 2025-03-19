@@ -12,7 +12,7 @@ Steganography Tools is a Python project that allows you to hide secret messages 
 1. Clone the repository:
    ```bash
    git clone https://github.com/ClairCrest/Homemade-stego-tools.git
-   cd <repository-directory>
+   cd Homemade-stego-tools
    ```
 
 2. Install the required dependencies:
