@@ -1,6 +1,6 @@
 # Steganography Tools
 
-Steganography Tools is a Python project that allows you to hide secret messages in media files, including images, audio, and video. This project provides a command-line interface (CLI) for encoding and decoding messages using various steganography techniques.
+Steganography Tools is a Python project that allows you to hide secret messages in media files, including images, audio, and video. This project provides both a command-line interface (CLI) and a graphical user interface (GUI) for encoding and decoding messages using various steganography techniques.
 
 ## Features
 - **Image Steganography**: Encode and decode messages in images using LSB (Least Significant Bit) steganography.
@@ -22,9 +22,35 @@ Steganography Tools is a Python project that allows you to hide secret messages 
 
 ## Usage
 
+### Graphical User Interface (GUI)
+The GUI provides an easy-to-use interface for encoding and decoding messages without using the command line.
+
+1. Run the GUI:
+   ```bash
+   python gui.py
+   ```
+
+2. Follow the on-screen instructions to select files and enter secret messages.
+
+### Creating an Executable
+To create an executable file for the GUI:
+
+1. Install PyInstaller:
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. Create the executable:
+   ```bash
+   pyinstaller --onefile --windowed gui.py
+   ```
+
+3. Find the executable in the `dist` directory.
+
+### Command-Line Interface (CLI)
 The CLI provides several commands for encoding and decoding messages in different media types. Below are some examples:
 
-### Image Steganography
+#### Image Steganography
 - **Encode a message into an image**:
   ```bash
   python main.py encode-image -i picture/original.png -o picture/encoded.png -d "Secret message"
@@ -34,7 +60,7 @@ The CLI provides several commands for encoding and decoding messages in differen
   python main.py decode-image -i picture/encoded.png
   ```
 
-### Audio Steganography
+#### Audio Steganography
 - **Encode a message into an audio file**:
   ```bash
   python main.py encode-audio -i audio/original.wav -o audio/encoded.wav -d "Secret message"
@@ -44,7 +70,7 @@ The CLI provides several commands for encoding and decoding messages in differen
   python main.py decode-audio -i audio/encoded.wav
   ```
 
-### Video Steganography
+#### Video Steganography
 - **Encode a message into a video**:
   ```bash
   python main.py encode-video -i video/original.mp4 -o video/encoded.mp4 -d "Secret message"
@@ -61,6 +87,7 @@ The CLI provides several commands for encoding and decoding messages in differen
 - **`video_stego.py`**: Contains the `VideoStego` class for encoding and decoding messages in video files while preserving audio.
 - **`cli.py`**: Provides the command-line interface for interacting with the steganography tools.
 - **`utils.py`**: Utility functions for binary conversion.
+- **`gui.py`**: Provides the graphical user interface for the steganography tools.
 
 ## License
 
