@@ -3,3 +3,4 @@ numpy
 pydub
 opencv-python
 click
+tkinter
