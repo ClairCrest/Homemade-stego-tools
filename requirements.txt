@@ -1,6 +1,20 @@
-Pillow
-numpy
-pydub
-opencv-python
-click
-tkinter
+# Python version
+python>=3.10.0
+
+# Core dependencies
+Pillow==11.1.0
+numpy==2.2.4
+pydub==0.25.1
+opencv-python==4.11.0.86
+click==8.1.8
+tkinter==8.6.10
+
+# GUI dependencies
+# Note: tkinter is included with Python installation
+
+# Additional dependencies
+colorama==0.4.6  # Required by click for colored output
+ffmpeg-python  # Required for video processing
+
+# Development dependencies
+pyinstaller  # For creating executable
