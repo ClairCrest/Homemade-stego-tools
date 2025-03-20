@@ -8,4 +8,4 @@ click==8.1.8
 # Additional dependencies
 colorama==0.4.6  # Required by click for colored output
 ffmpeg-python  # Required for video processing
-
+ffmpeg==4.4.1
