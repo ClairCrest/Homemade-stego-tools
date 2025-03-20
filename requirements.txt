@@ -1,5 +1,5 @@
 # Python version
-python>=3.10.0
+python==3.10.0
 
 # Core dependencies
 Pillow==11.1.0
