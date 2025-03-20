@@ -200,7 +200,7 @@ class VideoStego:
             print(f"Data encoded successfully in {modified_frames} frames")
             print(f"Total frames processed: {frame_count}")
             print(f"Total bits encoded: {bit_index}")
-            print(f"To decode this video, run: python main.py subtle-decode-video -i {output_path}")
+            print(f"To decode this video, run: python main.py decode-video -i {output_path}")
         else:
             print(f"Warning: Only encoded {bit_index}/{len(binary_message)} bits")
     
