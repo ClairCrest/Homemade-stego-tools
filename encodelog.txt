@@ -1,0 +1,75 @@
+D:\Work\Year3\Term2\Cybersecurity\Homemade-stego-tools>python main.py encode-video -i video/cat.mp4 -o video/catEn.mp4 -d "This is a secret message" -k kDzkQxADEsOwM4hT8UeJDopkqUzuxkZ72gaEtItnozg=
+
+  ____  _                        _____           _
+ / ___|| |_ ___  __ _  ___      |_   _|__   ___ | |___
+ \___ \| __/ _ \/ _` |/ _ \ _____| |/ _ \ / _ \| / __|
+  ___) | ||  __/ (_| | (_) |_____| | (_) | (_) | \__ \
+ |____/ \__\___|\__, |\___/      |_|\___/ \___/|_|___/
+                |___/
+
+Steganography Tools v1.0.0
+Hide secret messages in images, audio, and video files
+
+Message encrypted using Fernet (length: 160 characters)
+Message length: 160 characters
+Binary length: 1304 bits
+Frame 3, Bit 0: '0' at position (640,364)
+Frame 3, Bit 1: '0' at position (656,364)
+Frame 3, Bit 2: '0' at position (672,364)
+Frame 6, Bit 880: '0' at position (640,364)
+Frame 6, Bit 881: '1' at position (656,364)
+Frame 6, Bit 882: '1' at position (672,364)
+Copying audio from original video to the encoded video...
+ffmpeg version 2024-12-09-git-d21134313f-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers
+  built with gcc 14.2.0 (Rev1, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libaribb24 --enable-libaribcaption --enable-libdav1d --enable-libdavs2 --enable-libopenjpeg --enable-libquirc --enable-libuavs3d --enable-libxevd --enable-libzvbi --enable-libqrencode --enable-librav1e --enable-libsvtav1 --enable-libvvenc --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxeve --enable-libxvid --enable-libaom --enable-libjxl --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libcodec2 --enable-libilbc --enable-libgsm --enable-liblc3 --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      59. 49.100 / 59. 49.100
+  libavcodec     61. 26.100 / 61. 26.100
+  libavformat    61.  9.100 / 61.  9.100
+  libavdevice    61.  4.100 / 61.  4.100
+  libavfilter    10.  6.101 / 10.  6.101
+  libswscale      8. 12.100 /  8. 12.100
+  libswresample   5.  4.100 /  5.  4.100
+  libpostproc    58.  4.100 / 58.  4.100
+Input #0, avi, from 'C:\Users\WARAPO~1\AppData\Local\Temp\temp_encoded_video.avi':
+  Metadata:
+    software        : Lavf58.76.100
+  Duration: 00:00:58.26, start: 0.000000, bitrate: 9413 kb/s
+  Stream #0:0: Video: mpeg4 (Simple Profile) (XVID / 0x44495658), yuv420p, 1920x1080 [SAR 1:1 DAR 16:9], 9401 kb/s, 59.94 fps, 59.94 tbr, 59.94 tbn
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from 'video/cat.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomav01iso2mp41
+    encoder         : Lavf59.16.100
+  Duration: 00:00:58.31, start: 0.000000, bitrate: 1782 kb/s
+  Stream #1:0[0x1](und): Video: av1 (libdav1d) (Main) (av01 / 0x31307661), yuv420p(tv, bt709), 1920x1080, 1646 kb/s, 59.94 fps, 59.94 tbr, 60k tbn (default)
+    Metadata:
+      handler_name    : ISO Media file produced by Google Inc.
+      vendor_id       : [0][0][0][0]
+  Stream #1:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s (default)        
+    Metadata:
+      handler_name    : ISO Media file produced by Google Inc.
+      vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #1:1 -> #0:1 (copy)
+Output #0, mp4, to 'video/catEn.mp4':
+  Metadata:
+    software        : Lavf58.76.100
+    encoder         : Lavf61.9.100
+  Stream #0:0: Video: mpeg4 (Simple Profile) (mp4v / 0x7634706D), yuv420p, 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 9401 kb/s, 59.94 fps, 59.94 tbr, 11988 tbn
+  Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s (default)
+    Metadata:
+      handler_name    : ISO Media file produced by Google Inc.
+      vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[out#0/mp4 @ 000002a54bbe9600] video:66843KiB audio:911KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.101360%
+frame= 3492 fps=0.0 q=-1.0 Lsize=   67822KiB time=00:00:58.25 bitrate=9536.8kbits/s speed= 907x
+Successfully merged audio into the output video: video/catEn.mp4
+Data encoded successfully in 2 frames
+Total frames processed: 6
+Total bits encoded: 1320
+To decode this video, run: python main.py decode-video -i video/catEn.mp4 -k "kDzkQxADEsOwM4hT8UeJDopkqUzuxkZ72gaEtItnozg="
+Secret encrypted data encoded into video/catEn.mp4
+Use the same key with decode-video to retrieve your message

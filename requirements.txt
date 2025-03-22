@@ -4,8 +4,19 @@ numpy==2.2.4
 pydub==0.25.1
 opencv-python==4.11.0.86
 click==8.1.8
+cryptography==44.0.2
 
 # Additional dependencies
 colorama==0.4.6  # Required by click for colored output
 ffmpeg-python  # Required for video processing
 ffmpeg
+scipy==1.15.2
+
+# Steganography helpers
+fernet==1.0.1  # For encryption
+stego-lsb==1.6.3  # Additional steganography utilities
+
+# Cryptography dependencies
+cffi==1.17.1  # Required by cryptography
+pycparser==2.22  # Required by cffi
+pyaes==1.6.1  # Additional encryption support
