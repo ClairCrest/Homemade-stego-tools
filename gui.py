@@ -6,6 +6,7 @@ from stego_tool.video_stego import VideoStego
 from cryptography.fernet import Fernet
 import logging
 import cv2
+import base64
 
 class StegoGUI:
     def __init__(self, root):
@@ -20,6 +21,22 @@ class StegoGUI:
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             level=logging.INFO
         )
+        
+    def validate_fernet_key(self, key):
+        """Validate that the provided key is a valid Fernet key"""
+        if not key:
+            return False
+            
+        try:
+            # Check if it's base64 decodable
+            if len(key) < 32:
+                return False
+                
+            # Try initializing a Fernet object with the key
+            Fernet(key.encode())
+            return True
+        except Exception:
+            return False
 
     def create_widgets(self):
         # Create a tabbed interface
@@ -49,8 +66,11 @@ class StegoGUI:
         # Encryption Section
         ttk.Label(self.image_tab, text='Encryption Key:').pack()
         self.image_key_var = tk.StringVar()
+        self.image_key_var.trace("w", lambda name, index, mode, sv=self.image_key_var: self.on_key_change(sv, "image"))
         ttk.Entry(self.image_tab, textvariable=self.image_key_var, width=50).pack()
         ttk.Button(self.image_tab, text='Generate Key', command=self.generate_image_key).pack()
+        self.image_key_status = ttk.Label(self.image_tab, text="")
+        self.image_key_status.pack()
 
         # Input file selection
         ttk.Label(self.image_tab, text='Select Input Image:').pack()
@@ -72,6 +92,25 @@ class StegoGUI:
         # Encode and Decode buttons
         ttk.Button(self.image_tab, text='Encode', command=self.encode_image).pack()
         ttk.Button(self.image_tab, text='Decode', command=self.decode_image).pack()
+
+    def on_key_change(self, string_var, tab_name):
+        """Validates the key whenever it changes"""
+        key = string_var.get()
+        is_valid = self.validate_fernet_key(key)
+        
+        if tab_name == "image":
+            status_label = self.image_key_status
+        elif tab_name == "audio":
+            status_label = self.audio_key_status
+        else:  # video
+            status_label = self.video_key_status
+            
+        if not key:
+            status_label.config(text="")
+        elif is_valid:
+            status_label.config(text="✓ Valid Fernet key", foreground="green")
+        else:
+            status_label.config(text="✗ Invalid Fernet key", foreground="red")
 
     def generate_image_key(self):
         try:
@@ -97,6 +136,11 @@ class StegoGUI:
         secret_data = self.image_secret_data.get()
         key = self.image_key_var.get() if self.image_key_var.get() else None
         
+        # Validate key if provided
+        if key and not self.validate_fernet_key(key):
+            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+            return
+        
         if input_path and output_path and secret_data:
             try:
                 ImageStego.encode_image(input_path, secret_data, output_path, key)
@@ -112,6 +156,11 @@ class StegoGUI:
         input_path = self.image_input_path.get()
         key = self.image_key_var.get() if self.image_key_var.get() else None
         
+        # Validate key if provided
+        if key and not self.validate_fernet_key(key):
+            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+            return
+            
         if input_path:
             try:
                 secret_data = ImageStego.decode_image(input_path, key)
@@ -136,8 +185,11 @@ class StegoGUI:
         # Encryption Section
         ttk.Label(self.audio_tab, text='Encryption Key:').pack()
         self.audio_key_var = tk.StringVar()
+        self.audio_key_var.trace("w", lambda name, index, mode, sv=self.audio_key_var: self.on_key_change(sv, "audio"))
         ttk.Entry(self.audio_tab, textvariable=self.audio_key_var, width=50).pack()
         ttk.Button(self.audio_tab, text='Generate Key', command=self.generate_audio_key).pack()
+        self.audio_key_status = ttk.Label(self.audio_tab, text="")
+        self.audio_key_status.pack()
 
         # Input file selection
         ttk.Label(self.audio_tab, text='Select Input Audio:').pack()
@@ -184,6 +236,11 @@ class StegoGUI:
         secret_data = self.audio_secret_data.get()
         key = self.audio_key_var.get() if self.audio_key_var.get() else None
         
+        # Validate key if provided
+        if key and not self.validate_fernet_key(key):
+            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+            return
+        
         if input_path and output_path and secret_data:
             try:
                 AudioStego.encode_audio(input_path, secret_data, output_path, key)
@@ -199,6 +256,11 @@ class StegoGUI:
         input_path = self.audio_input_path.get()
         key = self.audio_key_var.get() if self.audio_key_var.get() else None
         
+        # Validate key if provided
+        if key and not self.validate_fernet_key(key):
+            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+            return
+            
         if input_path:
             try:
                 secret_data = AudioStego.decode_audio(input_path, key)
@@ -222,8 +284,11 @@ class StegoGUI:
         # Encryption Section
         ttk.Label(self.video_tab, text='Encryption Key:').pack()
         self.enc_key_var = tk.StringVar()
+        self.enc_key_var.trace("w", lambda name, index, mode, sv=self.enc_key_var: self.on_key_change(sv, "video"))
         ttk.Entry(self.video_tab, textvariable=self.enc_key_var, width=50).pack()
         ttk.Button(self.video_tab, text='Generate Key', command=self.generate_encryption_key).pack()
+        self.video_key_status = ttk.Label(self.video_tab, text="")
+        self.video_key_status.pack()
 
         # Input file selection
         ttk.Label(self.video_tab, text='Select Input Video:').pack()
@@ -299,6 +364,11 @@ class StegoGUI:
         secret_data = self.video_secret_data.get()
         key = self.enc_key_var.get() if self.enc_key_var.get() else None
         
+        # Validate key if provided
+        if key and not self.validate_fernet_key(key):
+            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+            return
+            
         if not all([input_path, output_path, secret_data]):
             messagebox.showwarning('Warning', 'Please fill all required fields')
             return
@@ -322,6 +392,11 @@ class StegoGUI:
         input_path = self.video_input_path.get()
         key = self.enc_key_var.get() if self.enc_key_var.get() else None
         
+        # Validate key if provided
+        if key and not self.validate_fernet_key(key):
+            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+            return
+            
         if not input_path:
             messagebox.showwarning('Warning', 'Please select an input file')
             return
