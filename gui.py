@@ -283,10 +283,10 @@ class StegoGUI:
         
         # Encryption Section
         ttk.Label(self.video_tab, text='Encryption Key:').pack()
-        self.enc_key_var = tk.StringVar()
-        self.enc_key_var.trace("w", lambda name, index, mode, sv=self.enc_key_var: self.on_key_change(sv, "video"))
-        ttk.Entry(self.video_tab, textvariable=self.enc_key_var, width=50).pack()
-        ttk.Button(self.video_tab, text='Generate Key', command=self.generate_encryption_key).pack()
+        self.video_key_var = tk.StringVar()
+        self.video_key_var.trace("w", lambda name, index, mode, sv=self.video_key_var: self.on_key_change(sv, "video"))
+        ttk.Entry(self.video_tab, textvariable=self.video_key_var, width=50).pack()
+        ttk.Button(self.video_tab, text='Generate Key', command=self.generate_video_key).pack()
         self.video_key_status = ttk.Label(self.video_tab, text="")
         self.video_key_status.pack()
 
@@ -321,10 +321,10 @@ class StegoGUI:
         if file_path:
             self.video_output_path.set(file_path)
 
-    def generate_encryption_key(self):
+    def generate_video_key(self):
         try:
             key = VideoStego.generate_key().decode()
-            self.enc_key_var.set(key)
+            self.video_key_var.set(key)
             messagebox.showinfo("Success", "New encryption key generated and set!")
         except Exception as e:
             messagebox.showerror("Error", f"Key generation failed: {str(e)}")
@@ -362,7 +362,7 @@ class StegoGUI:
         input_path = self.video_input_path.get()
         output_path = self.video_output_path.get()
         secret_data = self.video_secret_data.get()
-        key = self.enc_key_var.get() if self.enc_key_var.get() else None
+        key = self.video_key_var.get() if self.video_key_var.get() else None
         
         # Validate key if provided
         if key and not self.validate_fernet_key(key):
@@ -390,7 +390,7 @@ class StegoGUI:
 
     def decode_video(self):
         input_path = self.video_input_path.get()
-        key = self.enc_key_var.get() if self.enc_key_var.get() else None
+        key = self.video_key_var.get() if self.video_key_var.get() else None
         
         # Validate key if provided
         if key and not self.validate_fernet_key(key):
