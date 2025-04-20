@@ -316,7 +316,8 @@ class VideoStego:
                     block = frame[y:y+block_size, x:x+block_size]
                     median_red = np.median(block[:, :, 2])
                     median_blue = np.median(block[:, :, 0])
-                    bit = 1 if median_red > median_blue else 0
+                    diff = median_red - median_blue
+                    bit = 1 if diff > 5 else 0  # ใช้ threshold สัก 5-10
                     header_bits += str(bit)
                 if len(header_bits) >= 16:
                     break
