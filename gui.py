@@ -52,10 +52,10 @@ class StegoGUI:
         tab_control.add(self.audio_tab, text='Audio')
         self.create_audio_tab()
 
-        # Video tab
-        self.video_tab = ttk.Frame(tab_control)
-        tab_control.add(self.video_tab, text='Video')
-        self.create_video_tab()
+        # # Video tab
+        # self.video_tab = ttk.Frame(tab_control)
+        # tab_control.add(self.video_tab, text='Video')
+        # self.create_video_tab()
 
         tab_control.pack(expand=1, fill='both')
 
@@ -278,149 +278,149 @@ class StegoGUI:
         self.audio_secret_data.set('')
         # Don't clear the key
 
-    def create_video_tab(self):
-        ttk.Label(self.video_tab, text='Video Encoding/Decoding').pack()
+    # def create_video_tab(self):
+    #     ttk.Label(self.video_tab, text='Video Encoding/Decoding').pack()
         
-        # Encryption Section
-        ttk.Label(self.video_tab, text='Encryption Key:').pack()
-        self.video_key_var = tk.StringVar()
-        self.video_key_var.trace("w", lambda name, index, mode, sv=self.video_key_var: self.on_key_change(sv, "video"))
-        ttk.Entry(self.video_tab, textvariable=self.video_key_var, width=50).pack()
-        ttk.Button(self.video_tab, text='Generate Key', command=self.generate_video_key).pack()
-        self.video_key_status = ttk.Label(self.video_tab, text="")
-        self.video_key_status.pack()
+    #     # Encryption Section
+    #     ttk.Label(self.video_tab, text='Encryption Key:').pack()
+    #     self.video_key_var = tk.StringVar()
+    #     self.video_key_var.trace("w", lambda name, index, mode, sv=self.video_key_var: self.on_key_change(sv, "video"))
+    #     ttk.Entry(self.video_tab, textvariable=self.video_key_var, width=50).pack()
+    #     ttk.Button(self.video_tab, text='Generate Key', command=self.generate_video_key).pack()
+    #     self.video_key_status = ttk.Label(self.video_tab, text="")
+    #     self.video_key_status.pack()
 
-        # Input file selection
-        ttk.Label(self.video_tab, text='Select Input Video:').pack()
-        self.video_input_path = tk.StringVar()
-        ttk.Entry(self.video_tab, textvariable=self.video_input_path, width=50).pack()
-        ttk.Button(self.video_tab, text='Browse', command=self.select_video_input).pack()
+    #     # Input file selection
+    #     ttk.Label(self.video_tab, text='Select Input Video:').pack()
+    #     self.video_input_path = tk.StringVar()
+    #     ttk.Entry(self.video_tab, textvariable=self.video_input_path, width=50).pack()
+    #     ttk.Button(self.video_tab, text='Browse', command=self.select_video_input).pack()
 
-        # Output file selection
-        ttk.Label(self.video_tab, text='Select Output Video:').pack()
-        self.video_output_path = tk.StringVar()
-        ttk.Entry(self.video_tab, textvariable=self.video_output_path, width=50).pack()
-        ttk.Button(self.video_tab, text='Browse', command=self.select_video_output).pack()
+    #     # Output file selection
+    #     ttk.Label(self.video_tab, text='Select Output Video:').pack()
+    #     self.video_output_path = tk.StringVar()
+    #     ttk.Entry(self.video_tab, textvariable=self.video_output_path, width=50).pack()
+    #     ttk.Button(self.video_tab, text='Browse', command=self.select_video_output).pack()
 
-        # Secret message entry
-        ttk.Label(self.video_tab, text='Enter Secret Message:').pack()
-        self.video_secret_data = tk.StringVar()
-        ttk.Entry(self.video_tab, textvariable=self.video_secret_data, width=50).pack()
+    #     # Secret message entry
+    #     ttk.Label(self.video_tab, text='Enter Secret Message:').pack()
+    #     self.video_secret_data = tk.StringVar()
+    #     ttk.Entry(self.video_tab, textvariable=self.video_secret_data, width=50).pack()
 
-        # Encode and Decode buttons
-        ttk.Button(self.video_tab, text='Encode', command=self.encode_video).pack()
-        ttk.Button(self.video_tab, text='Decode', command=self.decode_video).pack()
+    #     # Encode and Decode buttons
+    #     ttk.Button(self.video_tab, text='Encode', command=self.encode_video).pack()
+    #     ttk.Button(self.video_tab, text='Decode', command=self.decode_video).pack()
 
-    def select_video_input(self):
-        file_path = filedialog.askopenfilename(filetypes=[('Video Files', '*.mp4;*.avi')])
-        if file_path:
-            self.video_input_path.set(file_path)
+    # def select_video_input(self):
+    #     file_path = filedialog.askopenfilename(filetypes=[('Video Files', '*.mp4;*.avi')])
+    #     if file_path:
+    #         self.video_input_path.set(file_path)
 
-    def select_video_output(self):
-        file_path = filedialog.asksaveasfilename(defaultextension='.mp4', filetypes=[('MP4 Files', '*.mp4')])
-        if file_path:
-            self.video_output_path.set(file_path)
+    # def select_video_output(self):
+    #     file_path = filedialog.asksaveasfilename(defaultextension='.mp4', filetypes=[('MP4 Files', '*.mp4')])
+    #     if file_path:
+    #         self.video_output_path.set(file_path)
 
-    def generate_video_key(self):
-        try:
-            key = VideoStego.generate_key().decode()
-            self.video_key_var.set(key)
-            messagebox.showinfo("Success", "New encryption key generated and set!")
-        except Exception as e:
-            messagebox.showerror("Error", f"Key generation failed: {str(e)}")
+    # def generate_video_key(self):
+    #     try:
+    #         key = VideoStego.generate_key().decode()
+    #         self.video_key_var.set(key)
+    #         messagebox.showinfo("Success", "New encryption key generated and set!")
+    #     except Exception as e:
+    #         messagebox.showerror("Error", f"Key generation failed: {str(e)}")
 
-    def check_video_duration(self, video_path):
-        try:
-            cap = cv2.VideoCapture(video_path)
-            if not cap.isOpened():
-                messagebox.showerror('Error', f"Could not open video file {video_path}")
-                return False
+    # def check_video_duration(self, video_path):
+    #     try:
+    #         cap = cv2.VideoCapture(video_path)
+    #         if not cap.isOpened():
+    #             messagebox.showerror('Error', f"Could not open video file {video_path}")
+    #             return False
                 
-            # Get video properties
-            fps = cap.get(cv2.CAP_PROP_FPS)
-            frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    #         # Get video properties
+    #         fps = cap.get(cv2.CAP_PROP_FPS)
+    #         frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
             
-            # Calculate duration in seconds
-            duration = frame_count / fps if fps > 0 else 0
+    #         # Calculate duration in seconds
+    #         duration = frame_count / fps if fps > 0 else 0
             
-            # Release the capture object
-            cap.release()
+    #         # Release the capture object
+    #         cap.release()
             
-            # Check if video exceeds 11 seconds
-            if duration >= 10.7:
-                messagebox.showerror('Error', 
-                                     f"Video is too long ({duration:.2f} seconds). " +
-                                     "Please use a video shorter than 11 seconds.")
-                return False
+    #         # Check if video exceeds 11 seconds
+    #         if duration >= 10.7:
+    #             messagebox.showerror('Error', 
+    #                                  f"Video is too long ({duration:.2f} seconds). " +
+    #                                  "Please use a video shorter than 11 seconds.")
+    #             return False
                 
-            return True
-        except Exception as e:
-            messagebox.showerror('Error', f"Error checking video duration: {str(e)}")
-            return False
+    #         return True
+    #     except Exception as e:
+    #         messagebox.showerror('Error', f"Error checking video duration: {str(e)}")
+    #         return False
 
-    def encode_video(self):
-        input_path = self.video_input_path.get()
-        output_path = self.video_output_path.get()
-        secret_data = self.video_secret_data.get()
-        key = self.video_key_var.get() if self.video_key_var.get() else None
+    # def encode_video(self):
+    #     input_path = self.video_input_path.get()
+    #     output_path = self.video_output_path.get()
+    #     secret_data = self.video_secret_data.get()
+    #     key = self.video_key_var.get() if self.video_key_var.get() else None
         
-        # Validate key if provided
-        if key and not self.validate_fernet_key(key):
-            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
-            return
+    #     # Validate key if provided
+    #     if key and not self.validate_fernet_key(key):
+    #         messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+    #         return
             
-        if not all([input_path, output_path, secret_data]):
-            messagebox.showwarning('Warning', 'Please fill all required fields')
-            return
+    #     if not all([input_path, output_path, secret_data]):
+    #         messagebox.showwarning('Warning', 'Please fill all required fields')
+    #         return
             
-        # Check video duration before encoding
-        if not self.check_video_duration(input_path):
-            return
+    #     # Check video duration before encoding
+    #     if not self.check_video_duration(input_path):
+    #         return
 
-        try:
-            # Use the static method directly
-            VideoStego.encode_video(input_path, secret_data, output_path, key)
+    #     try:
+    #         # Use the static method directly
+    #         VideoStego.encode_video(input_path, secret_data, output_path, key)
             
-            messagebox.showinfo('Success', f'Data encoded and saved to {output_path}')
-            self.clear_video_fields()
+    #         messagebox.showinfo('Success', f'Data encoded and saved to {output_path}')
+    #         self.clear_video_fields()
             
-        except Exception as e:
-            logging.error("Encoding failed: %s", str(e))
-            messagebox.showerror('Error', f'Encoding failed: {str(e)}')
+    #     except Exception as e:
+    #         logging.error("Encoding failed: %s", str(e))
+    #         messagebox.showerror('Error', f'Encoding failed: {str(e)}')
 
-    def decode_video(self):
-        input_path = self.video_input_path.get()
-        key = self.video_key_var.get() if self.video_key_var.get() else None
+    # def decode_video(self):
+    #     input_path = self.video_input_path.get()
+    #     key = self.video_key_var.get() if self.video_key_var.get() else None
         
-        # Validate key if provided
-        if key and not self.validate_fernet_key(key):
-            messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
-            return
+    #     # Validate key if provided
+    #     if key and not self.validate_fernet_key(key):
+    #         messagebox.showerror('Error', 'Please enter a valid Fernet encryption key')
+    #         return
             
-        if not input_path:
-            messagebox.showwarning('Warning', 'Please select an input file')
-            return
+    #     if not input_path:
+    #         messagebox.showwarning('Warning', 'Please select an input file')
+    #         return
 
-        try:
-            # Use the static method directly
-            secret_data = VideoStego.decode_video(input_path, key)
+    #     try:
+    #         # Use the static method directly
+    #         secret_data = VideoStego.decode_video(input_path, key)
             
-            if secret_data:
-                messagebox.showinfo('Decoded Data', f'Decoded data: {secret_data}')
-            else:
-                messagebox.showinfo('Decoded Data', 'No hidden message found or decryption failed')
+    #         if secret_data:
+    #             messagebox.showinfo('Decoded Data', f'Decoded data: {secret_data}')
+    #         else:
+    #             messagebox.showinfo('Decoded Data', 'No hidden message found or decryption failed')
                 
-            self.clear_video_fields()
+    #         self.clear_video_fields()
             
-        except Exception as e:
-            logging.error("Decoding failed: %s", str(e))
-            messagebox.showerror('Error', f'Decoding failed: {str(e)}')
+    #     except Exception as e:
+    #         logging.error("Decoding failed: %s", str(e))
+    #         messagebox.showerror('Error', f'Decoding failed: {str(e)}')
 
-    def clear_video_fields(self):
-        self.video_input_path.set('')
-        self.video_output_path.set('')
-        self.video_secret_data.set('')
-        # Don't clear the encryption key
+    # def clear_video_fields(self):
+    #     self.video_input_path.set('')
+    #     self.video_output_path.set('')
+    #     self.video_secret_data.set('')
+    #     # Don't clear the encryption key
 
 if __name__ == '__main__':
     root = tk.Tk()
