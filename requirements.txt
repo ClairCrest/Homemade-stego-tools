@@ -10,7 +10,6 @@ cryptography==44.0.2
 colorama==0.4.6  # Required by click for colored output
 ffmpeg-python  # Required for video processing
 ffmpeg
-<<<<<<< Updated upstream
 scipy==1.15.2
 
 # Steganography helpers
@@ -21,5 +20,3 @@ stego-lsb==1.6.3  # Additional steganography utilities
 cffi==1.17.1  # Required by cryptography
 pycparser==2.22  # Required by cffi
 pyaes==1.6.1  # Additional encryption support
-=======
->>>>>>> Stashed changes
